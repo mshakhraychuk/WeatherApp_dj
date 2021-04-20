@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="main.css">
+	<link href="https://allfont.ru/allfont.css?fonts=roboto-light" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="{% static 'css/main.css' %}">
+	<title>Document</title>
+</head>
+<body>
+
+	<header>Погодное приложение</header>
+
+	<section class="main">
+
+		<div class="weather">
+
+			<div class="title">
+				<h1>Где узнаем погоду?</h1>
+			</div>
+
+			<div class="formWeather">
+
+				<form action="" method="post">
+					{%csrf_token%}
+					<div class="form_group">
+						{{form.name}}
+						<label for="" class="input_label">Введите город</label>
+					</div>
+
+					<button class="gaga">Поехали!</button>
+
+				</form>
+
+			</div>
+
+
+
+		</div>
+
+
+		<div class="info">
+			<div class="title">
+				<h1>Полученная нами информация</h1>
+			</div>
+
+
+			{% for info in all_info %}
+			<form action="" method="post">
+				{%csrf_token%}
+
+				<div class="result">
+					Город : {{ info.city }} <a class="del_city" href="{% url 'delete-city' id=info.id %}">Удалить</a> <br>
+					<div class="rez">
+						Температура в {{ info.city }} : {{ info.temp }} <sup>°</sup> <br>
+						<div class="img_temp"><img height="70px" width="70px" src="https://openweathermap.org/img/w/{{info.icon}}.png" alt="weather_photo" class=""></div>
+					</div>
+
+				</div>
+			</form>
+			{% endfor %}
+		</div>
+
+
+
+	</section>
+
+</body>
+</html>
